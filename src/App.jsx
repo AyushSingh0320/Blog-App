@@ -1,10 +1,10 @@
 import {useDispatch} from "react-redux"
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
+import { login, logout } from "./Store/AuthSlice";
+import { Footer, Header } from "./Components";
+import { Outlet } from "react-router-dom";
 import AuthService from "./APPWRITE/AUTH.JS";
-import { login, logout } from "./Store/AuthSlice ";
-import { Footer, Header } from "./Componenets";
-import { Outlet } from "react-router";
 
 function App() {
 const [loading , setloading] = useState(true)
