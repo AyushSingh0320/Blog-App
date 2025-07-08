@@ -2,7 +2,7 @@ import config from "../config";
 import { Client, ID , Databases , Query , Storage } from "appwrite";
 
 
-class DatabaseService {
+class Databaseservice {
     client = new Client();
      databases;
      bucket;
@@ -34,7 +34,7 @@ class DatabaseService {
             return result;
         }
         catch(error){
-            throw error;
+            console.log("Appwrite service :: getCurrentUser :: error", error.message);
         }
         
      }
@@ -115,7 +115,7 @@ class DatabaseService {
 
 
 
-const DatabaseService = new DatabaseService();
+const DatabaseService = new Databaseservice();
 
 export default DatabaseService;
 
