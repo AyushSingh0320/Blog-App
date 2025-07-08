@@ -30,7 +30,7 @@ class File {
     }
   }
 
-  async delteFile(fileID){
+  async deleteFile(fileID){
     try{
         await this.bucket.deleteFile(
             config.appwriteBucketId,
