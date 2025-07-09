@@ -62,12 +62,12 @@ class Databaseservice {
 
      }
 
-     async deletePost(){
+     async deletePost(postId){
         try{
          await this.databases.deleteDocument( 
             config.appwriteDatabaseId,
             config.appwriteCollectionId,
-            ID.unique())
+            postId)
             return true
         }
         

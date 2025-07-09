@@ -50,16 +50,18 @@ export default function PostForm({ post }) {
 
             if (file) {
                 const fileId = file.$id;
+                data.featuredImage = fileId;
                 // Build payload to match Appwrite schema exactly
-                const payload = {
-                  Title: data.title,
-                  Content: data.content,
-                  "user-id": userData.$id,
-                  Image_ID: fileId
-                };
+                // const payload = {
+                //   Title: data.title,
+                //   Content: data.content,
+                //   "user-id": userData.$id,
+                //   Image_ID: fileId
+                // };
                 console.log("userData at submit:", userData);
-                console.log("Final payload to send:", payload);
-                const dbPost = await DatabaseService.createpost(payload);
+                // console.log("Final payload to send:", payload);
+                const dbPost = await DatabaseService.createpost({ ...data, "user-id": userData.$id });
+                console.log("Final payload to send:", dbPost)
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);

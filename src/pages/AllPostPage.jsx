@@ -14,11 +14,11 @@ useEffect(() => {
   return (
     <div className='w-full py-8'>
         <Container>
-           <div className='flex flex-wrap'>
+           <div className='flex flex-wrap gap-4'>
             {post.map((P) => {
   console.log("PostCard data:", P);
   return (
-    <div key={P.$id}>
+    <div key={P.$id} className="p-2 w-1/4">
       <PostCard {...P} />
     </div>
   );

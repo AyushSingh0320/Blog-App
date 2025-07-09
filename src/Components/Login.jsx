@@ -2,10 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login as authlogin } from "../Store/AuthSlice";
-import AuthService from "../APPWRITE/AUTH.JS";
+import AuthService from "../APPWRITE/Auth.js";
 import {Button , Input , Logo} from  "./index"
 import { useForm } from "react-hook-form";
-import { Form, useNavigate, Link } from "react-router";
+import { useNavigate, Link } from "react-router-dom";
 
 
 function Login(){
@@ -16,6 +16,7 @@ function Login(){
 
     const login = async (data) =>  {
         setError("") 
+        console.log("LOGIN FUNCTION CALLED", data);
         try{ 
         const session = await AuthService.login(data)
           if(session){
@@ -25,7 +26,13 @@ function Login(){
           }
         }
         catch(error){
-            setError(error.message)
+            console.log("Login error object:", error);
+            const errorMsg = error.message || error.response?.message || error.response?.errors?.[0]?.message || "An error occurred. Please try again.";
+            if (errorMsg.toLowerCase().includes("invalid credentials")) {
+              setError("Invalid credentials. Please check the email and password.");
+            } else {
+              setError(errorMsg);
+            }
         }
     }
 
@@ -51,7 +58,7 @@ return (
                     </p>
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-        <Form onSubmit={handleSubmit(login)}
+        <form onSubmit={handleSubmit(login)}
         className="mt-8">
               <div className='space-y-5'>
                 <Input
@@ -61,7 +68,7 @@ return (
                 {...register("email", {
                     required: true,
                     validate: {
-                        matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                        matchPattern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                         "Email address must be a valid address",
                     }
                 })}
@@ -81,7 +88,7 @@ return (
             </div>
 
 
-        </Form>
+        </form>
 
 
     </div>
