@@ -1,5 +1,5 @@
 import React, {useState , useEffect}from 'react'
-import DatabaseService from '../APPWRITE/Database_temp.js'
+import DatabaseService from '../APPWRITE/Database.js'
 import { useNavigate , useParams } from 'react-router'
 import { Container , PostForm } from '../Components'
 

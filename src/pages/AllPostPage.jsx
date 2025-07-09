@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, PostCard } from '../Components'
-import DatabaseService from '../APPWRITE/Database_temp.js'
+import DatabaseService from '../APPWRITE/Database.js'
 
 function AllPostPage() {
 const [post , setPost] = useState([])
