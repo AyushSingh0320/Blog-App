@@ -36,31 +36,33 @@ export default function Post() {
     return post ? (
         <div className="py-8">
             <Container>
-                <div className="w-full flex justify-center mb-4 relative p-2">
-                    <img
-                        src={Fileservice.getpreview(post.Image_ID)}
-                        alt={post.title}
-                        className="rounded-xl h-120 object-contain border border-gray-400"
-                    />
-
-                    {isAuthor && (
-                        <div className="absolute right-6 top-6">
-                            <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgcolor="bg-green-500" className="mr-3">
-                                    Edit
+                <div className="max-w-3xl w-full mx-auto px-4">
+                    <div className="flex justify-center mb-4 relative">
+                        <img
+                            src={Fileservice.getpreview(post.Image_ID)}
+                            alt={post.title}
+                            className="rounded-xl max-h-96 w-full object-contain border border-gray-400"
+                            style={{ maxWidth: "100%" }}
+                        />
+                        {isAuthor && (
+                            <div className="absolute right-6 top-6">
+                                <Link to={`/edit-post/${post.$id}`}>
+                                    <Button bgcolor="bg-green-500" className="mr-3">
+                                        Edit
+                                    </Button>
+                                </Link>
+                                <Button bgcolor="bg-red-500" onClick={deletePost}>
+                                    Delete
                                 </Button>
-                            </Link>
-                            <Button bgcolor="bg-red-500" onClick={deletePost}>
-                                Delete
-                            </Button>
-                        </div>
-                    )}
-                </div>
-                <div className="w-full mb-6">
-                    <h1 className="text-2xl font-bold">{post.title}</h1>
-                </div>
-                <div className="browser-css">
-                    {typeof post.Content === "string" ? parse(post.Content) : null}
+                            </div>
+                        )}
+                    </div>
+                    <div className="mb-6">
+                        <h1 className="text-2xl font-bold break-words">{post.title}</h1>
+                    </div>
+                    <div className="browser-css overflow-x-auto w-full break-words">
+                        {typeof post.Content === "string" ? parse(post.Content) : null}
+                    </div>
                 </div>
             </Container>
         </div>
