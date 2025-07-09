@@ -13,12 +13,15 @@ export default function RTE({name, control, label, defaultValue =""}) {
     control={control}
     render={({field: {onChange}}) => (
         <Editor
-         apiKey='aamhh4uo3u2b01tajscv08sqj8ztan4kcfcmkrpdp4jl2pe6'
+         apiKey='' // Remove API key for self-hosted version
         initialValue={defaultValue}
         init={{
             initialValue: defaultValue,
             height: 500,
             menubar: true,
+            // Use self-hosted TinyMCE
+            skin: 'oxide',
+            content_css: 'default',
             plugins: [
                 "image",
                 "advlist",
@@ -43,7 +46,10 @@ export default function RTE({name, control, label, defaultValue =""}) {
             ],
             toolbar:
             "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
-            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            // Disable cloud features
+            branding: false,
+            promotion: false
         }}
         onEditorChange={onChange}
         />

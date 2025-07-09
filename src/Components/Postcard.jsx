@@ -16,7 +16,7 @@ function PostCard({ $id, Title, Image_ID }) {
             />
           )}
         </div>
-        <h2 className="text-xl font-bold ">{Title}</h2>
+        <h2 className="text-xl font-bold text-center w-full truncate overflow-hidden text-ellipsis px-2">{Title}</h2>
       </div>
     </Link>
   );
