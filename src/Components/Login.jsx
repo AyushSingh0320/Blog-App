@@ -22,9 +22,13 @@ function Login(){
           if(session){
             const userData = await AuthService.getCurrentUser()
             if(userData) dispatch(authlogin(userData))  ;
-            navigate( "/")
+            navigate( "/")}
+            else {
+                console.log("Caught login error:", error);
+                setError("Failed to get user data.");
+              }
           }
-        }
+        
         catch(error){
             console.log("Login error object:", error);
             const errorMsg = error.message || error.response?.message || error.response?.errors?.[0]?.message || "An error occurred. Please try again.";
@@ -56,10 +60,11 @@ return (
                         Sign Up
                     </Link>
                     </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-
+                    {typeof error === "string" && error.length > 0 && (
+  <p className="text-red-600 mt-8 text-center">{error}</p>
+)}
         <form onSubmit={handleSubmit(login)}
-        className="mt-8">
+        className="mt-8 text-black">
               <div className='space-y-5'>
                 <Input
                 label="Email: "
