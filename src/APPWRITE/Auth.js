@@ -34,8 +34,8 @@ export class Auth {
       return await this.account.createEmailPasswordSession(email, password);
 }
         catch(error){
-            console.log(error.message)
-            ;
+            console.log(error.message);
+            throw error;
         }
     }
     async getCurrentUser(){
