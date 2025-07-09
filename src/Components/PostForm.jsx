@@ -2,7 +2,7 @@ import React  from 'react'
 import { useForm } from 'react-hook-form'
 import {Button , Input , SelectBtn , RTE} from  "./index"
 import { useSelector } from 'react-redux'
-import DatabaseService from '../APPWRITE/DATABASE.JS'
+import DatabaseService from '../APPWRITE/Database.js'
 import { useNavigate } from 'react-router'
 import Fileservice from '../APPWRITE/File'
 import { useCallback } from 'react'
@@ -12,7 +12,7 @@ import { useCallback } from 'react'
 export default function PostForm({ post }) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
-            title: post?.title || "",
+            title: post?.Title || "",
             slug: post?.$id || "",
             content: post?.content || "",
             status: post?.status || "active",
@@ -22,12 +22,19 @@ export default function PostForm({ post }) {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
 
+    // Redirect to login if not authenticated
+    React.useEffect(() => {
+        if (!userData) {
+            navigate('/login');
+        }
+    }, [userData, navigate]);
+
     const submit = async (data) => {
         if (post) {
             const file = data.image[0] ? await Fileservice.uploadFiles(data.image[0]) : null;
 
             if (file) {
-                Fileservice.delteFile(post.featuredImage);
+                Fileservice.deleteFile(post.featuredImage);
             }
 
             const dbPost = await DatabaseService.updatepost(post.$id, {
@@ -43,8 +50,16 @@ export default function PostForm({ post }) {
 
             if (file) {
                 const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await DatabaseService.createpost({ ...data, userId: userData.$id });
+                // Build payload to match Appwrite schema exactly
+                const payload = {
+                  Title: data.title,
+                  Content: data.content,
+                  "user-id": userData.$id,
+                  Image_ID: fileId
+                };
+                console.log("userData at submit:", userData);
+                console.log("Final payload to send:", payload);
+                const dbPost = await DatabaseService.createpost(payload);
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
@@ -105,19 +120,19 @@ export default function PostForm({ post }) {
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={Fileservice.getpreview(post.featuredImage)}
+                            src={Fileservice.getpreview(post.Image_ID)}
                             alt={post.title}
                             className="rounded-lg"
                         />
                     </div>
                 )}
-                <Select
+                <SelectBtn
                     options={["active", "inactive"]}
                     label="Status"
                     className="mb-4"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
+                <Button type="submit" bgcolor={post ? "bg-green-500" : undefined} className="w-full">
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>

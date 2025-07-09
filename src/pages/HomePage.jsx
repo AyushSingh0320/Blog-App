@@ -1,5 +1,5 @@
 import React , {useState , useEffect} from 'react'
-import DatabaseService from '../APPWRITE/DATABASE.JS'
+import DatabaseService from '../APPWRITE/Database.js'
 import { Container , PostCard } from '../Components'
 
 
@@ -7,7 +7,7 @@ function HomePage() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        DatabaseService.getPosts().then((posts) => {
+        DatabaseService.getPost().then((posts) => {
             if (posts) {
                 setPosts(posts.documents)
             }

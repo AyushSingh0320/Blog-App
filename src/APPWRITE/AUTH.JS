@@ -25,7 +25,7 @@ export class Auth {
        }
         }
         catch (error){
-           throw error;
+           console.log(error.message);
         }
 }
 
@@ -34,7 +34,8 @@ export class Auth {
       return await this.account.createEmailPasswordSession(email, password);
 }
         catch(error){
-            throw error;
+            console.log(error.message)
+            ;
         }
     }
     async getCurrentUser(){

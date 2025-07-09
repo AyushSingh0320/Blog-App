@@ -9,7 +9,7 @@ class File {
 
 
   constructor(){
-    this.clientlientlient
+    this.client
              .setEndpoint(config.appwriteUrl)
              .setProject(config.appwriteProjectId);
     this.bucket = new Storage(this.client)
@@ -45,7 +45,7 @@ class File {
 
 
   getpreview(fileID){
-    return this.bucket.getFilePreview(
+    return this.bucket.getFileView(
         config.appwriteBucketId,
         fileID
     )

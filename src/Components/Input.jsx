@@ -1,4 +1,4 @@
- import React, {useID , forwardRef} from 'react'
+ import React, {useId , forwardRef} from 'react'
  
 const Input = forwardRef(({
     label,
@@ -6,7 +6,7 @@ const Input = forwardRef(({
     className = "",
     ...props
 } , ref) => {
-    const ID = useID();
+    const ID = useId();
     return (
         <div className='w-full'>
        {label && <label

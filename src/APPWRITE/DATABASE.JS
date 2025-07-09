@@ -16,20 +16,19 @@ class Databaseservice {
      }
 
 
-     async createpost({title , content , featuredImage , status , userId}){
+     async createpost({title , content , status , "user-id": userId, featuredImage}){
         try{
             const result = await this.databases.createDocument(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 ID.unique(),
                 {
-                    title,
-                    content,
-                    userId,
-                    featuredImage,
+                    Title: title,
+                    Content: content,
+                    "user-id": userId,
+                    Image_ID: featuredImage,
                     status
-
-                    }
+                }
             )
             return result;
         }
@@ -39,16 +38,17 @@ class Databaseservice {
         
      }
 
-     async updatepost(ID, {title  , content , featuredImage , status }
+     async updatepost(postId, {title  , content , status , "user-id": userId, featuredImage}
 ){
         try{
        return await this.databases.updateDocument( config.appwriteDatabaseId,
                 config.appwriteCollectionId,
-                ID.unique(),
+                postId,
             {
-                title,
-                content,
-                featuredImage,
+                Title: title,
+                Content: content,
+                "user-id": userId,
+                Image_ID: featuredImage,
                 status
                 
 
@@ -77,13 +77,13 @@ class Databaseservice {
         }
      }
  
-     async getPost(){
+     async getPost(postId){
       try{
        return await this.databases.getDocument(
             config.appwriteDatabaseId,
             config.appwriteCollectionId,
-            ID.unique())
-            
+            postId
+        )
       }
       catch (error){
         console.log("Appwrite service :: getCurrentUser :: error", error.message);

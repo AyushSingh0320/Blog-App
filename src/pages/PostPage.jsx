@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import DatabaseService from "../APPWRITE/DATABASE.JS";
+import DatabaseService from '../APPWRITE/Database.js'
 import { Container ,Button } from "../Components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
@@ -13,7 +13,7 @@ export default function Post() {
 
     const userData = useSelector((state) => state.auth.userData);
 
-    const isAuthor = post && userData ? post.userId === userData.$id : false;
+    const isAuthor = post && userData ? post["user-id"] === userData.$id : false;
 
     useEffect(() => {
         if (slug) {
@@ -36,21 +36,21 @@ export default function Post() {
     return post ? (
         <div className="py-8">
             <Container>
-                <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+                <div className="w-full flex justify-center mb-4 relative p-2">
                     <img
-                        src={Fileservice.getpreview(post.featuredImage)}
+                        src={Fileservice.getpreview(post.Image_ID)}
                         alt={post.title}
-                        className="rounded-xl"
+                        className="rounded-xl h-120 object-contain border border-gray-400"
                     />
 
                     {isAuthor && (
                         <div className="absolute right-6 top-6">
                             <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3">
+                                <Button bgcolor="bg-green-500" className="mr-3">
                                     Edit
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost}>
+                            <Button bgcolor="bg-red-500" onClick={deletePost}>
                                 Delete
                             </Button>
                         </div>
@@ -60,8 +60,8 @@ export default function Post() {
                     <h1 className="text-2xl font-bold">{post.title}</h1>
                 </div>
                 <div className="browser-css">
-                    {parse(post.content)}
-                    </div>
+                    {typeof post.Content === "string" ? parse(post.Content) : null}
+                </div>
             </Container>
         </div>
     ) : null;
