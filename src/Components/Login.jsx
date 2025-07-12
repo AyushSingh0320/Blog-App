@@ -42,9 +42,8 @@ function Login(){
 
 return (
     <div
-    className='flex items-center justify-center w-full'
-    >
-         <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+    className='flex items-center justify-center w-full px-2 sm:px-0'>
+         <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-4 sm:p-10 border border-black/10`}>
         <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px] text-black pl-8">
                         <Logo width="100%" />

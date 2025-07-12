@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 function PostCard({ $id, Title, Image_ID }) {
   return (
     <Link to={`/post/${$id}`}>
-      <div className="bg-gray-900 rounded-xl p-4 w-64 h-64 flex flex-col items-center justify-center ">
+      <div className="bg-gray-900 rounded-xl p-4 w-64 h-64 flex flex-col items-center justify-center sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 max-w-full max-h-full">
         <div className="w-full flex justify-center mb-2">
           {Image_ID && (
             <img

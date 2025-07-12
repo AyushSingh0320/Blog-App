@@ -36,12 +36,12 @@ export default function Post() {
     return post ? (
         <div className="py-8">
             <Container>
-                <div className="max-w-3xl w-full mx-auto px-4">
-                    <div className="flex justify-center mb-4 relative">
+                <div className="max-w-3xl w-full mx-auto px-2 sm:px-4">
+                    <div className="flex flex-col items-center mb-4 relative">
                         <img
                             src={Fileservice.getpreview(post.Image_ID)}
                             alt={post.title}
-                            className="rounded-xl max-h-96 w-full object-contain border border-gray-400"
+                            className="rounded-xl max-h-96 w-full object-contain border border-gray-400 max-w-full h-auto"
                             style={{ maxWidth: "100%" }}
                         />
                         {isAuthor && (
@@ -57,10 +57,10 @@ export default function Post() {
                             </div>
                         )}
                     </div>
-                    <div className="mb-6">
-                        <h1 className="text-2xl font-bold break-words">{post.title}</h1>
+                    <div className="mb-6 px-1 sm:px-0">
+                        <h1 className="text-2xl font-bold break-words text-center sm:text-left">{post.title}</h1>
                     </div>
-                    <div className="browser-css overflow-x-auto w-full break-words">
+                    <div className="browser-css overflow-x-auto w-full break-words px-1 sm:px-0">
                         {typeof post.Content === "string" ? parse(post.Content) : null}
                     </div>
                 </div>

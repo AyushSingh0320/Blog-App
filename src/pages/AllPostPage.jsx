@@ -18,7 +18,7 @@ useEffect(() => {
             {post.map((P) => {
   console.log("PostCard data:", P);
   return (
-    <div key={P.$id} className="p-2 w-1/4">
+    <div key={P.$id} className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
       <PostCard {...P} />
     </div>
   );
